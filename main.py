@@ -37,7 +37,8 @@ print(dataset.groupby('class').size())
 #   whisker = lowest and highest values
 #   midline = mean
 #   dots = outliers: 3/2 times outside the lower/upper quartile
-dataset.plot(kind='box', subplots=True, layout=(2, 2), sharex=False, sharey=False)
+dataset.plot(kind='box', subplots=True, layout=(2, 2), sharex=False, 
+                                                        sharey=False)
 plt.show()
 # histograms
 dataset.hist()
@@ -62,8 +63,8 @@ seed = 7
 X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
 
 # -- Test Harness
-# using 10-fold cross validation to estimate accuracy, splits datasets into 10 parts
-# train on 9 and test on 1
+# using 10-fold cross validation to estimate accuracy, splits datasets into
+# 10 parts - train on 9 and test on 1
 # seed the data with random numbers to introduce new values
 # accuracy is number of correct answers over number of inputs
 # Test options and evaluation metric
@@ -80,7 +81,8 @@ scoring = 'accuracy'
 
 # Create a list of algorithms to be used in models
 models = []
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+models.append(('LR', LogisticRegression(solver='liblinear',
+                                        multi_class='ovr')))
 models.append(('LDA', LinearDiscriminantAnalysis()))
 models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
@@ -92,7 +94,8 @@ results = []
 names = []
 for name, model in models:
     kfold = model_selection.KFold(n_splits=10, random_state=seed)
-    cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+    cv_results = model_selection.cross_val_score(model, X_train, Y_train, 
+                                                cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
