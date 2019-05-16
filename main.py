@@ -60,7 +60,8 @@ Y = array[:, 4]
 # Split between training (80%) and validation (20%)
 validation_size = 0.20
 seed = 7
-X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+X_train, X_validation, Y_train, Y_validation = \
+    model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
 
 # -- Test Harness
 # using 10-fold cross validation to estimate accuracy, splits datasets into
@@ -95,7 +96,7 @@ names = []
 for name, model in models:
     kfold = model_selection.KFold(n_splits=10, random_state=seed)
     cv_results = model_selection.cross_val_score(model, X_train, Y_train, 
-                                                cv=kfold, scoring=scoring)
+                                                 cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
